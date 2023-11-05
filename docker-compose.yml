@@ -1,0 +1,28 @@
+version: "2.1"
+
+services: 
+  
+  database:
+    image: mongo
+    environment:
+      MONGO_ROOT_USERNAME: root
+      MONGO_ROOT_PASSWORD: example
+      MONGODB_URL: mongodb://root:example@mongo:27017/
+    volumes:
+      - database_storage
+      
+  container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+
+  test:
+    image: test_app
+    environment:
+      API_URL: http://localhost:3000
+    depends_on:
+      - container
+
+  
