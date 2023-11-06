@@ -16,3 +16,11 @@ jobs:
         run: yarn install
       - name: yarn lint command
         run: yarn lint
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: jonafouquaert2002/webapp:latest
